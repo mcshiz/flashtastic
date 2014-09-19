@@ -1,0 +1,26 @@
+one page
+
+Things to do:
+
+load page with list of card sets
+	last <li> "create set"
+
+Be able to clear stage
+	header/footer remain
+
+click on <li> with set and load that set on stage
+	one card load with next/prev card buttons
+	flip card button
+
+score boxes on right side
+	click to increase
+
+my card sets button
+	clear stage
+	load card sets page
+
+
+
+ My Decks | Login
+
+ 

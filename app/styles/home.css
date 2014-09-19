@@ -1,0 +1,244 @@
+
+/*
+#########################################################
+#################    Main Page   ########################
+*/
+.main-container {
+  background-color: #00D0BC;
+  height: 1000px!important;
+  width: 100%!important;
+}
+.no-js {
+  height: 0px;
+}
+
+/*##### navigation ##### */
+.header h3 {
+  margin-left: 50px;
+}
+
+.header {
+  display: block;
+  padding: 50px 0px;
+}
+
+/*
+#########################################################
+#################    Deck List   ########################
+*/
+.main-list {
+  list-style-type: none;
+  margin-left: 0px;
+  padding-left: 0px;
+
+}
+.main-list li {
+  font-size: 20px;
+  line-height: 60px;
+  vertical-align: middle; 
+  margin-left: 0px;
+  height: 60px;
+  cursor: pointer;
+  background-color: #e4e4e4;
+  margin-bottom: 5px;
+  position: relative;
+}
+.deck-name {
+  margin-left: 75px;
+  line-height: 60px;
+  position: absolute;
+  width: 75%;
+}
+
+.main-list li:hover span{
+ color: #428bca;
+}
+.main-list .icons {
+  font-size: 15px;
+  float: right;
+  line-height: 40px;
+  vertical-align: middle;
+  margin-right: 35px;
+  padding: 10px;
+  cursor: pointer;
+}
+.main-list .icons:hover {
+  color: white;
+}
+.main-list .main-add {
+  line-height: 60px;
+  vertical-align: middle;
+}
+.main-add span{
+  margin-left: 24px;
+}
+
+/*
+#########################################################
+#################    Main Card   ########################
+*/
+#main-card {
+  padding-bottom: 50px;
+}
+.card {
+  z-index: 30;
+  height: 275px;
+  vertical-align: middle; 
+}
+
+
+.card-number {
+  position: absolute;
+  z-index: 10;
+  top: 0px;
+  padding:6px 5px 0px 0px;
+  left: 50px;
+}
+.stage-question, .stage-answer {
+  height: 200px;
+  display: block;
+  position: absolute;
+  top: 35px;
+  left: 0px;
+}
+/*
+#########################################################
+#################   Main Stage   ########################
+*/
+
+.stacked, .stacked2{
+  position: absolute;
+}
+.seek-btn{
+  height: 175px;
+  display: block;
+  position: relative;
+}
+.seek-btn b{
+  color: white;
+  display: block;
+  position: relative;
+  font-size: 50px;
+  line-height: 275px;
+  height: 275px;
+  width: 75px;
+}
+.seek-btn b:hover, .show-more-questions:hover{
+color: rgba(0,0,0,1);
+cursor: pointer;
+}
+.prev {
+  margin-right: 0px;
+}
+.next {
+  margin-left: 0px;
+}
+.show-more-questions {
+  transform: rotate(90deg);
+  color: white;
+  position: relative;
+  font-size: 50px;
+  text-align: center;
+}
+.question-list-row {
+  margin-top: 65px;
+  padding-top: 5px;
+}
+.question-list li{
+  padding: 0px 10px;
+}
+.question-list li:hover{
+  color: #428bca;
+  border-bottom: 2px solid #428bca;
+}
+.cardsList {
+  overflow: hidden;
+}
+/*
+#########################################################
+#################   Card Flip    ########################
+*/
+
+.flip {
+  z-index: 3;
+  -webkit-perspective: 1000;
+  height: 275px;
+  position: relative;
+  padding: 0px;
+}
+
+.flip .card.flipped {
+  -webkit-transform: rotateX(-180deg);
+}
+.stage-answer {
+  top: -35px;
+}
+.flip .card {
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transition: 0.5s;
+}
+
+.flip .card .face {
+  width: 100%;
+  height: 100%;
+  position: absolute; 
+  text-align: center;
+}
+
+.flip .card .stage-answer {
+  -webkit-transform: rotateX(-180deg);
+}
+
+.stage-answer {
+  display: none;
+}
+
+
+/*
+#########################################################
+##################  Create Deck  ########################
+*/
+
+.face textarea {
+  height: 75%;
+  line-height: normal !important;
+  font-size: 14px;
+  width: 90%;
+  background-color: transparent;
+  border: none;
+
+}
+.stage-answer textarea {
+  position: relative;
+}
+.save-btn,  .flip-btn, .cancel-btn {
+  margin-top: 25px;
+  width: 125px;
+  border: 2px solid white;
+}
+
+.flip-btn>b, .save-btn>b, .cancel-btn>b{
+  margin-left: 5px;
+}
+.flip-btn {
+  width: 200px;
+}
+
+/*
+#########################################################
+##############  Bootstrap Overrides  ####################
+*/
+.flip.btn {
+  display: block;
+}
+.face {
+  font-size: 2em;
+}
+.face textarea{
+  font-size: 1.2em;
+}
+.header img {
+  position: relative;
+  top: -20px;
+}

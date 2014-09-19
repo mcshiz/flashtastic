@@ -1,0 +1,227 @@
+<div class=" container main-container" ng-controller="DeckList as deck">
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li ng-class="{active: deck.selectedNav(1)}"><a href ng-click="deck.navSelect(1)">My Decks</a></li>
+      <li ng-class="{active: deck.selectedNav(2)}"><a href ng-click="deck.navSelect(2)">Study</a></li>
+      <li ng-class="{active: deck.selectedNav(3)}"><a href ng-click="deck.navSelect(3)">New Deck</a></li>
+      <li ng-class="{active: deck.selectedNav(4)}"><a href ng-click="deck.navSelect(4)">Login</a></li>
+    </ul>
+    <img src="./images/ft-logo.png" alt="logo">
+  </div>
+
+      <div id="login-modal" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Name this deck</h4>
+            </div>
+          <div class="modal-body">
+            <form method="post" action='' name="login_form">
+              <p><input type="text" class="span3" name="eid" id="email" placeholder="Email"></p>
+              <p><input type="password" class="span3" name="passwd" placeholder="Password"></p>
+              <p><button type="submit" class="btn btn-primary">Sign in</button>
+                <a href="#">Forgot Password?</a>
+              </p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            New To Flashtastic.com?
+            <a href="#" class="btn btn-primary">Register</a>
+          </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div id="error-modal" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Error</h4>
+            </div>
+          <div class="modal-body">
+            <p ng-model="error"></p>
+          </div>
+          <div class="modal-footer">
+            New To Flashtastic.com?
+            <a href="#" class="btn btn-primary">Register</a>
+          </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+  <div id="deck-list" class=" deckList" ng-hide="deck.nav !== 1">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <ul class="main-list">
+          <li ng-repeat="(key, val) in decks" class="deck" >
+            <span class="deck-name" ng-click="deck.loadDeck(key); deck.navSelect(2)">{{key}}</span> 
+            <span class=" glyphicon glyphicon-remove icons" ng-click="deck.removeDeck(key)"></span>
+            <span class="glyphicon glyphicon-edit icons" ng-click="deck.loadDeck(key); deck.navSelect(5)"></span>
+          </li>
+          <li class="main-add" ng-click="deck.navSelect(3)">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span>Start A New Set</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-card" ng-hide="deck.nav !== 2" >
+    <div class="row main-card-row">
+      <div class="col-xs-2 col-xs-offset-1 seek-btn ">
+        <b class="center-block glyphicon glyphicon-chevron-left prev" ng-click="seek(-1)"></b>
+      </div>
+      <div class="col-xs-6 flip text-center">
+        <span class="card-number">{{stageCard + 1}} OF {{currentDeck.length}}</span>
+        <div class="paper card">
+          <div class="stage-question face">
+            {{currentDeck[stageCard].question}}
+          </div>
+          <div class="stage-answer face">
+            {{currentDeck[stageCard].answer}}
+          </div>
+        </div>
+        <button class="btn btn-primary flip-btn" ng-click="flip()">Flip the card<b class="glyphicon glyphicon-refresh"></b></button>
+      </div>
+      <div class="col-xs-2 seek-btn ">
+        <b class="center-block glyphicon glyphicon-chevron-right next" ng-click="seek(1)"></b>
+      </div>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked"></b>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked2"></b>
+    </div>
+    <div class="row question-list-row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <ul class="main-list question-list">
+          <li ng-repeat="question in currentDeck track by $index" class="cardsList" ng-click="changeCard($index)">{{question.question}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <div id="new-deck" ng-hide="deck.nav !== 3" >
+
+      <div id="name-deck-modal" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Name this deck</h4>
+            </div>
+            <div class="modal-body">
+              <span>Enter a name for this deck of flash cards </span>
+              <br>
+              <input type="text" size="45" ng-model="newDeckName">
+              
+            </div>
+            <div class="modal-footer">
+              <button 
+                type="button" 
+                class="btn btn-default"
+                id="save-set-name" 
+                data-dismiss="modal">save</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    <div class="row main-card-row">
+      <div class="col-xs-6 col-xs-offset-3 flip text-center">
+        <div class="paper card">
+          <div class="stage-question face">
+           <textarea 
+            name="new-question new-input" 
+            id="" 
+            ng-model="newQuestion"
+            placeholder="Enter the question here then flip the card to enter the answer." ></textarea>
+          </div>
+          <div class="stage-answer face">
+            <textarea name="new-answer new-input" id="" ng-model="newAnswer"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 center-block">
+            <button class="btn btn-danger cancel-btn" ng-show="show" ng-click="deck.cancel()" >Cancel<b class="glyphicon glyphicon-remove"></b></button>
+            <button class="btn btn-primary flip-btn" ng-click="flip()">Flip card<b class="glyphicon glyphicon-refresh"></b></button>
+            <button class="btn btn-success save-btn"ng-show="!show" ng-click="saveNewCard(newDeckName, newQuestion, newAnswer); deck.loadDeck(newDeckName)">Save card<b class="glyphicon glyphicon-floppy-disk"></b></button>
+            <button class="btn btn-success save-btn"ng-show="show" ng-click="saveEditCard(newDeckName, newQuestion, newAnswer, card);">Save edit<b class="glyphicon glyphicon-floppy-disk" ></b></button>
+          </div>
+        </div>
+      </div>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked"></b>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked2"></b>
+    </div>
+    <div class="row question-list-row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <ul class="main-list question-list">
+          <li ng-repeat="question in currentDeck track by $index" class="" ng-click="editCard(newDeckName, $index);">{{question.question}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <div id="edit-deck" ng-hide="deck.nav !== 5" >
+
+      <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Name this deck</h4>
+            </div>
+            <div class="modal-body">
+              <span>Enter a name for this deck of flash cards </span>
+              <br>
+              <input type="text" size="45" ng-model="thisDeck">
+              
+            </div>
+            <div class="modal-footer">
+              <button 
+                type="button" 
+                class="btn btn-default"
+                id="save-set-name" 
+                data-dismiss="modal">save</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    <div class="row main-card-row">
+      <div class="col-xs-6 col-xs-offset-3 flip text-center">
+        <div class="paper card">
+          <div class="stage-question face">
+           <textarea 
+            name="new-question new-input" 
+            id="" 
+            ng-model="newQuestion"
+            placeholder="Enter the question here then flip the card to enter the answer." ></textarea>
+          </div>
+          <div class="stage-answer face">
+            <textarea name="new-answer new-input" id="" ng-model="newAnswer"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 center-block">
+            <button class="btn btn-danger cancel-btn" ng-show="show" ng-click="deck.cancel()" >Cancel<b class="glyphicon glyphicon-remove"></b></button>
+            <button class="btn btn-primary flip-btn" ng-click="flip()">Flip card<b class="glyphicon glyphicon-refresh"></b></button>
+            <button class="btn btn-success save-btn"ng-show="!show" ng-click="saveNewCard(newDeckName, newQuestion, newAnswer)">Save card<b class="glyphicon glyphicon-floppy-disk"></b></button>
+            <button class="btn btn-success save-btn"ng-show="show" ng-click="saveEditCard(newQuestion, newAnswer);">Save edit<b class="glyphicon glyphicon-floppy-disk" ></b></button>
+          </div>
+        </div>
+      </div>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked"></b>
+      <b class="col-sm-6 col-sm-offset-3 hidden-xs stacked2"></b>
+    </div>
+    <div class="row question-list-row">
+      <div class="col-xs-6 col-xs-offset-3">
+        <ul class="main-list question-list">
+          <li ng-repeat="card in currentDeck track by $index" class="" ng-click="editCard($index);">{{card.question}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>

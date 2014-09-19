@@ -1,0 +1,58 @@
+
+<div class="header">
+  <ul class="nav nav-pills pull-right" ng-controller="NavCtrl as nav">
+    <li ng-class="{active: nav.selectedNav(1)"><a ng-href="#/home" ng-click="nav.navSelect(1)">My Decks</a></li>
+    <li ng-class="{active: nav.selectedNav === 2"><a ng-href="#/home" ng-click="nav.navSelect(2)">Login</a></li>
+  </ul>
+  <h3 class="text-muted">flash-tastic</h3>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-7">
+      <div class="paper big-card">
+        <form role="form" ng-submit="addCard()">
+          <div style="padding:5px 10px;">
+            <span style="position: absolute; top:2px; left:3px; font-size:1.4em">Q: {{ (set.length + 1) }}</span>
+            <span style="position: absolute; top:2px; right:3px; font-size:1.4em">Set: 
+              <input type="text" ng-model="setName" placeholder="Name this set" id="setNameInput">
+            </span>
+            <input type="text" ng-model="question" placeholder="Question" class="form-control">
+            <br />
+            <input type="text" ng-model="answer" placeholder="Answer" class="form-control">
+            <input type="text" ng-model="index" placeholder="index" value="" class="form-control" style="display: none">
+            <input type="submit" class="btn btn-primary" value="Add" id="addBtn" style="position: absolute; bottom:3px; right:3px">
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-12">
+        Your Flashcard Sets:
+        <form>
+          <ul>
+            <li ng-repeat="card in cards | unique: 'setName' track by $id($index)">
+              <label for="{{card.setName}}" >
+              Set Name:&nbsp;{{card.setName}}
+                <input type="radio"
+                       ng-model="setFilter.term" 
+                       ng-value="card.setName" 
+                       ng-click="setFunc(card)"
+                       name="setName"  
+                       id="{{card.setName}}">
+              </label>
+            </li>
+            <li><label>Show all<input type="radio" ng-model="setFilter.term" ng-click="setFunc(card)" value=""></label></li>
+          </ul>
+        </form>
+      </div>            
+    </div>
+    <div class="col-sm-5 pull-right" ui-sortable ng-model="cards" style="height: 425px; overflow: scroll">
+      <div ng-repeat="card in set = (cards | filter: searchFilter) track by $id($index)" class="col-sm-12 paper2 small-card">
+        <span style="position: absolute; top:0px; left:3px">Q: {{ ($index + 1) }}</span>
+        <span>{{ card.question }}</span>
+        <button class="btn btn-danger small-card-remove" ng-click="removeCard($index)" aria-label="Remove">X</button>
+        <span class="edit-button" ng-click="editCard($index)">
+          <b class="glyphicon glyphicon-pencil"></b>
+        </span>
+      </div>
+    </div>
+  </div> 
+</div>
