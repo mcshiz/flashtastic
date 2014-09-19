@@ -9,15 +9,16 @@ I just wanted to explore a few new technologies such as Angularjs, Grunt and Fir
 
 It's a pretty self explanitory webapp.
 
-Key Features:
-  Create a 'deck' of flashcards
-  Edit a deck
-  Delete a deck
-  Review the cards
+Key Features: <br>
+  Create a 'deck' of flashcards <br>
+  Edit a deck<br>
+  Delete a deck<br>
+  Review the cards<br>
+  Store decks in Firebase DB <br>
   
   
-Upcoming Features:
-  Save to localstorage for offline capabilities
-  Login to save decks
+Upcoming Features: <br>
+  Save to localstorage for offline capabilities <br>
+  Login to save decks <br>
   
   
