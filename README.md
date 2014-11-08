@@ -22,3 +22,6 @@ Upcoming Features: <br>
   Login to save decks <br>
   
   
+11.8.14 notes
+	edit deck > add card > card doesnt show up in edit screen after saving
+			goes into new deck named undefined
